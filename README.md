@@ -3,10 +3,7 @@ A starting point for static sites using Gulp, PostCSS, Rucksack (PostCSS), H5BP,
 
 TODOS:
 
-/ Image Optimize
-/ SVG Shit
-/ FTP DEPLOYMENT Task
-/ Zip Builder
+
 
 
 ## Usage
@@ -19,5 +16,13 @@ TODOS:
 - Pages live in `./src/html`.
 - CSS lives in `./src/styles`.
 - JS lives in `./src/scripts`.
+
+
+## TODOS
+- Image Optimizer
+- SVG Tools
+- FTP DEPLOYMENT
+- Zip Builder
+- Kiss Simone
 
 
