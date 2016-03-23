@@ -1,6 +1,7 @@
 # Gulp for Gold - Ulitmate Boilerplate
 A starting point for static sites using Gulp, PostCSS, Rucksack (PostCSS), H5BP, Nunjucks and BrowserSync
 
+![alt tag](http://ahmed-badawy.com/blog/wp-content/uploads/2015/02/gulp.png)
 
 
 ## Usage
