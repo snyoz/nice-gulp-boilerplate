@@ -1,8 +1,5 @@
-# gulp-postcss-boilerplate
+# Gulp for Gold - Ulitmate Boilerplate
 A starting point for static sites using Gulp, PostCSS, Rucksack (PostCSS), H5BP, Nunjucks and BrowserSync
-
-TODOS:
-
 
 
 
