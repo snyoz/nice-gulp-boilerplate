@@ -1,30 +1,42 @@
-// Start with Gulp initialization
-var gulp       = require('gulp');
-var tidyup     = require('rimraf');
+// Start with Gulp initialization & Basic Modules
+const gulp          = require('gulp');
+const tidyup        = require('rimraf');
+const zip           = require('gulp-zip');
 
 // JavaScript Modules
-var webpack    = require('gulp-webpack');
-var sourcemaps = require('gulp-sourcemaps');
-var babel      = require('gulp-babel');
-var concat     = require('gulp-concat');
-var uglify     = require('gulp-uglify');
-var rename     = require('gulp-rename');
+const webpack       = require('gulp-webpack');
+const sourcemaps    = require('gulp-sourcemaps');
+const babel         = require('gulp-babel');
+const concat        = require('gulp-concat');
+const uglify        = require('gulp-uglify');
+const rename        = require('gulp-rename');
 
 // CSS Modules
-var postcss       = require('gulp-postcss');
-var precss        = require('precss');
-var autoprefixer  = require('autoprefixer');
-var lost          = require('lost');
-var rucksack      = require('gulp-rucksack');
+const postcss       = require('gulp-postcss');
+const precss        = require('precss');
+const autoprefixer  = require('autoprefixer');
+const lost          = require('lost');
+const rucksack      = require('gulp-rucksack');
+
+// Images
+const svgSprite       = require("gulp-svg-sprites");
+const filter          = require('gulp-filter');
+const svg2png         = require('gulp-svg2png');
+const imagemin = require('gulp-imagemin');
+const pngquant = require('imagemin-pngquant');
 
 
 // HTML & Templating Modules
-var njRender    = require('gulp-nunjucks-render');
-var nj          = njRender.nunjucks;
+const njRender      = require('gulp-nunjucks-render');
+const nj            = njRender.nunjucks;
+
+// Deployment
+const gutil = require('gulp-util');
+const ftp = require('gulp-ftp');
 
 // Live Reload
-var browserSync   = require('browser-sync');
-var reload        = browserSync.reload;
+const browserSync   = require('browser-sync');
+const reload        = browserSync.reload;
 
 
 /////////////////////////
@@ -73,9 +85,29 @@ gulp.task('markup', function() {
     .pipe(gulp.dest('build'));
 });
 
-gulp.task('images', function() {
+
+gulp.task('sprites', function () {
+    return gulp.src('src/images/svg/*.svg')
+        .pipe(svgSprite())
+        .pipe(gulp.dest("build/images/svg-sprites")) // Write the sprite-sheet + CSS + Preview
+        .pipe(filter("**/*.svg"))                    // Filter out everything except the SVG file
+        .pipe(svg2png())                             // Create a PNG
+        .pipe(gulp.dest("build/images/png"));
+});
+
+gulp.task('imagemin', function () {
   return gulp.src('src/images/**/*.+(gif|jpg|png|svg)')
+    .pipe(imagemin({
+      progressive: true,
+      svgoPlugins: [{removeViewBox: false}],
+      use: [pngquant()]
+    }))
     .pipe(gulp.dest('build/images'));
+});
+
+gulp.task('fonts', function() {
+  return gulp.src('src/fonts/**/*.+(eot|svg|ttf|woff|woff2)')
+    .pipe(gulp.dest('build/assets/fonts'));
 });
 
 gulp.task('watch', function() {
@@ -95,14 +127,34 @@ gulp.task('sync', function() {
   });
 });
 
+gulp.task('zip', () => {
+  return gulp.src('build/*/**')
+    .pipe(zip('archive.zip'))
+    .pipe(gulp.dest('build'));
+});
+
+
+gulp.task('deploy', function () {
+  return gulp.src('build/*')
+    .pipe(ftp({
+      host: 'website.com',
+      user: 'johndoe',
+      pass: '1234'
+    }))
+    // you need to have some kind of stream after gulp-ftp to make sure it's flushed
+    // this can be a gulp plugin, gulp.dest, or any kind of stream
+    // here we use a passthrough stream
+    .pipe(gutil.noop());
+});
+
 
 /////////////////////////
 /////  Task Names and Calls
 /////////////////////////
 
 gulp.task('build', ['clean'], function () {
-  gulp.start(['markup', 'styles', 'images', 'scripts']);
+  gulp.start(['markup', 'styles', 'sprites', 'imagemin', 'scripts']);
 });
 
-gulp.task('default', ['markup', 'styles', 'images', 'sync', 'scripts', 'watch']);
+gulp.task('default', ['markup', 'styles', 'sync', 'scripts', 'watch']);
 

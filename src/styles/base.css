@@ -1,5 +1,5 @@
-$white: #fefefc;
-$blue: #0000ff;
+$primary: #fefefc;
+$secondary: #0000ff;
 
 
 @alias {
@@ -8,11 +8,11 @@ $blue: #0000ff;
 }
 
 body {
-	background: $white;
+	background: $secondary;
 	fs: 20px;
 }
 
 .test {
-	color: $blue;
+	color: $primary;
 	transform: translateX(34px);
 }

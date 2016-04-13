@@ -14,13 +14,8 @@ A starting point for static sites using Gulp, PostCSS, Rucksack (PostCSS), H5BP,
 - Pages live in `./src/html`.
 - CSS lives in `./src/styles`.
 - JS lives in `./src/scripts`.
+- Fonts lives in `./src/fonts`.
+- Images & SVGs lives in `./src/images`.
 
-
-## TODOS
-- Image Optimizer
-- SVG Tools
-- FTP DEPLOYMENT
-- Zip Builder
-- Kiss Simone
-
-
+## TODOS:
+- find a better grid system than 'lost'
