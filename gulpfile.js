@@ -31,8 +31,8 @@ const njRender      = require('gulp-nunjucks-render');
 const nj            = njRender.nunjucks;
 
 // Deployment
-const gutil = require('gulp-util');
-const ftp = require('gulp-ftp');
+const gutil         = require('gulp-util');
+const ftp           = require('gulp-ftp');
 
 // Live Reload
 const browserSync   = require('browser-sync');
@@ -89,10 +89,10 @@ gulp.task('markup', function() {
 gulp.task('sprites', function () {
     return gulp.src('src/images/svg/*.svg')
         .pipe(svgSprite())
-        .pipe(gulp.dest("build/images/svg-sprites")) // Write the sprite-sheet + CSS + Preview
+        .pipe(gulp.dest("build/assets/images/svg-sprites/")) // Write the sprite-sheet + CSS + Preview
         .pipe(filter("**/*.svg"))                    // Filter out everything except the SVG file
         .pipe(svg2png())                             // Create a PNG
-        .pipe(gulp.dest("build/images/png"));
+        .pipe(gulp.dest("build/assets/images/png-sprites/"));
 });
 
 gulp.task('imagemin', function () {
@@ -102,7 +102,7 @@ gulp.task('imagemin', function () {
       svgoPlugins: [{removeViewBox: false}],
       use: [pngquant()]
     }))
-    .pipe(gulp.dest('build/images'));
+    .pipe(gulp.dest('build/assets/images'));
 });
 
 gulp.task('fonts', function() {
@@ -153,7 +153,7 @@ gulp.task('deploy', function () {
 /////////////////////////
 
 gulp.task('build', ['clean'], function () {
-  gulp.start(['markup', 'styles', 'sprites', 'imagemin', 'scripts']);
+  gulp.start(['markup', 'styles', 'sprites', 'fonts', 'imagemin', 'scripts']);
 });
 
 gulp.task('default', ['markup', 'styles', 'sync', 'scripts', 'watch']);

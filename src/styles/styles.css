@@ -1,5 +1,5 @@
-/*styles.css*/
 @import '../../node_modules/normalize.css/normalize.css';
+/*@import '../../build/images/svg-sprites/css/sprite.css';*/
 
 @import 'base.css';
 @import 'fonts.css';
