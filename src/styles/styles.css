@@ -1,6 +1,32 @@
+/*------------------------------------*\
+    Normalize Import from NPM
+\*------------------------------------*/
 @import '../../node_modules/normalize.css/normalize.css';
-/*@import '../../build/images/svg-sprites/css/sprite.css';*/
 
+
+/*------------------------------------*\
+    Basic Insert
+\*------------------------------------*/
+@import 'variables.css';
 @import 'base.css';
 @import 'fonts.css';
-@import 'lost.css';
+
+
+/*------------------------------------*\
+    Template Structure
+\*------------------------------------*/
+
+@import "templates/header.css";
+@import "templates/footer.css";
+
+
+/*------------------------------------*\
+    Modules
+\*------------------------------------*/
+@import "modules/lightbox.css";
+
+
+/*------------------------------------*\
+    Mediaqueries
+\*------------------------------------*/
+@import "mediaqueries.css";

@@ -1,0 +1,8 @@
+$primary: #fefefc;
+$secondary: #0000ff;
+
+
+@alias {
+  fs: font-size;
+  br: border-radius;
+}

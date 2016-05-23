@@ -19,9 +19,6 @@ const lost          = require('lost');
 const rucksack      = require('gulp-rucksack');
 
 // Images
-const svgSprite       = require("gulp-svg-sprites");
-const filter          = require('gulp-filter');
-const svg2png         = require('gulp-svg2png');
 const imagemin = require('gulp-imagemin');
 const pngquant = require('imagemin-pngquant');
 
@@ -86,15 +83,6 @@ gulp.task('markup', function() {
 });
 
 
-gulp.task('sprites', function () {
-    return gulp.src('src/images/svg/*.svg')
-        .pipe(svgSprite())
-        .pipe(gulp.dest("build/assets/images/svg-sprites/")) // Write the sprite-sheet + CSS + Preview
-        .pipe(filter("**/*.svg"))                    // Filter out everything except the SVG file
-        .pipe(svg2png())                             // Create a PNG
-        .pipe(gulp.dest("build/assets/images/png-sprites/"));
-});
-
 gulp.task('imagemin', function () {
   return gulp.src('src/images/**/*.+(gif|jpg|png|svg)')
     .pipe(imagemin({
@@ -153,8 +141,9 @@ gulp.task('deploy', function () {
 /////////////////////////
 
 gulp.task('build', ['clean'], function () {
-  gulp.start(['markup', 'styles', 'sprites', 'fonts', 'imagemin', 'scripts']);
+  gulp.start(['markup', 'styles', 'fonts', 'imagemin', 'scripts']);
 });
 
 gulp.task('default', ['markup', 'styles', 'sync', 'scripts', 'watch']);
 
+gulp.start.apply(gulp, ['default']);
