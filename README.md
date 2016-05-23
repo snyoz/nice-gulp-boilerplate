@@ -22,6 +22,7 @@ A starting point for static sites using Gulp, PostCSS, Rucksack (PostCSS), H5BP,
 - webpack: https://github.com/shama/webpack-stream + sourcemaps + babel es6 features
 - preCSS [postCSS]: https://github.com/jonathantneal/precss
 - autoprefixer [postCSS]: https://github.com/postcss/autoprefixer
+- postcss-inline-svg [postCSS]: https://github.com/TrySound/postcss-inline-svg
 - flexboxgrid: http://flexboxgrid.com/ 
 - lost [postCSS]: https://github.com/peterramsing/lost (alternative for flexbox)
 - browserSync: https://www.browsersync.io/

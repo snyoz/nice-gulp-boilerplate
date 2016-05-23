@@ -16,6 +16,7 @@ const postcss       = require('gulp-postcss');
 const precss        = require('precss');
 const autoprefixer  = require('autoprefixer');
 const lost          = require('lost');
+const inlinesvg     = require('postcss-inline-svg');
 const rucksack      = require('gulp-rucksack');
 const cleanCSS      = require('gulp-clean-css');
 
@@ -69,6 +70,7 @@ gulp.task('styles', function() {
   var processors = [
     precss(),
     lost,
+    inlinesvg,
     autoprefixer({browsers: ['last 2 versions']})
   ];
   return gulp.src('src/styles/styles.css')

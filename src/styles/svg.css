@@ -1,0 +1,19 @@
+@svg-load gomba url(../images/gomba.svg) {}
+
+/*
+@svg-load gomba url(../images/gomba.svg) {
+    fill: #cfc;
+    path:nth-child(2) {
+        fill: #ff0;
+    }
+}
+*/
+
+.gomba-svg {
+    display: block;
+    margin: 0 auto; 
+    height: 360px;
+    width: 300px;
+    background: svg-inline(gomba);
+    background-size: 100%;
+}
