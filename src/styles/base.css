@@ -1,9 +1,8 @@
 body {
-	background: $secondary;
-	fs: 20px;
+	padding: 40px;
+	background: $bg-color;
+	color: $primary-font-color;
+	fs: 16px;
 }
 
-.test {
-	color: $primary;
-	transform: translateX(34px);
-}
+

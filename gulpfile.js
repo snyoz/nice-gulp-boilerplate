@@ -1,10 +1,10 @@
 // Start with Gulp initialization & Basic Modules
 const gulp          = require('gulp');
-const tidyup        = require('rimraf');
+const clean       = require('gulp-clean');
 const zip           = require('gulp-zip');
 
 // JavaScript Modules
-const webpack       = require('gulp-webpack');
+const webpack       = require('webpack-stream');
 const sourcemaps    = require('gulp-sourcemaps');
 const babel         = require('gulp-babel');
 const concat        = require('gulp-concat');
@@ -17,6 +17,7 @@ const precss        = require('precss');
 const autoprefixer  = require('autoprefixer');
 const lost          = require('lost');
 const rucksack      = require('gulp-rucksack');
+const cleanCSS      = require('gulp-clean-css');
 
 // Images
 const imagemin = require('gulp-imagemin');
@@ -42,8 +43,9 @@ const reload        = browserSync.reload;
 
 
 
-gulp.task('clean', function(cb) {
-  tidyup('build', cb);
+gulp.task('clean', function() {
+  return gulp.src('build/', {read: false})
+    .pipe(clean());
 });
 
 
@@ -72,6 +74,7 @@ gulp.task('styles', function() {
   return gulp.src('src/styles/styles.css')
     .pipe(postcss(processors))
     .pipe(rucksack())
+    .pipe(cleanCSS())
     .pipe(gulp.dest('build/assets/stylesheets/'))
 });
 
@@ -90,8 +93,9 @@ gulp.task('imagemin', function () {
       svgoPlugins: [{removeViewBox: false}],
       use: [pngquant()]
     }))
-    .pipe(gulp.dest('build/assets/images'));
+    .pipe(gulp.dest('build/assets/images/'));
 });
+
 
 gulp.task('fonts', function() {
   return gulp.src('src/fonts/**/*.+(eot|svg|ttf|woff|woff2)')
@@ -109,6 +113,7 @@ gulp.task('watch', function() {
 
 gulp.task('sync', function() {
   browserSync({
+    port: 4444,
     server: {
       baseDir: "./build/"
     }
@@ -146,4 +151,3 @@ gulp.task('build', ['clean'], function () {
 
 gulp.task('default', ['markup', 'styles', 'sync', 'scripts', 'watch']);
 
-gulp.start.apply(gulp, ['default']);
