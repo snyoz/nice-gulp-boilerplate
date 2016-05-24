@@ -1,4 +1,6 @@
-@svg-load gomba url(../images/gomba.svg) {}
+@svg-load gomba url(../images/gomba.svg) {
+    fill: tomato;
+}
 
 /*
 @svg-load gomba url(../images/gomba.svg) {
@@ -11,9 +13,11 @@
 
 .gomba-svg {
     display: block;
-    margin: 0 auto; 
+    margin: 0 auto;
     height: 360px;
-    width: 300px;
+    max-width: 300px;
+    width: 100%;
     background: svg-inline(gomba);
     background-size: 100%;
+    background-repeat: no-repeat;
 }
